@@ -32,6 +32,15 @@ public class User implements Serializable {
         this.favorites = favorites;
     }
 
+    public boolean movieExistsInFavorites(Movie movie) {
+        for(Movie m : favorites) {
+            if(m.getTitle().equals(movie.getTitle())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public void addMovieToFavorites(Movie movie) {
         for(Movie m : favorites) {
             if(m.getTitle().equals(movie.getTitle()))
@@ -39,5 +48,18 @@ public class User implements Serializable {
         }
 
         favorites.add(movie);
+    }
+
+    public void removeFromFavorites(Movie movie) {
+        Movie tmp = null;
+        for(Movie m : favorites) {
+            if(m.getTitle().equals(movie.getTitle())) {
+                tmp = m;
+            }
+        }
+
+        if(tmp != null) {
+            favorites.remove(tmp);
+        }
     }
 }

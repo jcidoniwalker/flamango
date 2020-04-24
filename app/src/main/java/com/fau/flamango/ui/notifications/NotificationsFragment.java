@@ -38,10 +38,24 @@ public class NotificationsFragment extends Fragment {
         items = new ArrayList<Movie>();
         for(Movie movie : SecondActivity.getUser().getFavorites()) {
             items.add(movie);
-            adapter = new Adapter(getActivity().getApplicationContext(), items);
+            adapter = new Adapter(getActivity().getApplicationContext(), items, this);
             recyclerView.setAdapter(adapter);
         }
 
         return root;
+    }
+
+    public void trigger() {
+        for(Movie m : SecondActivity.getUser().getFavorites()) {
+            System.out.println(m.getTitle());
+        }
+
+        items = new ArrayList<Movie>();
+        for(Movie movie : SecondActivity.getUser().getFavorites()) {
+            items.add(movie);
+        }
+
+        adapter = new Adapter(getActivity().getApplicationContext(), items, this);
+        recyclerView.setAdapter(adapter);
     }
 }
