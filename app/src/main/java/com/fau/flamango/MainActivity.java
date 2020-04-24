@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 String password = ET_Password.getText().toString();
 
                 if(!username.equals("") && !password.equals("")) {
-                    if(!userDAO.exists(ET_Username.getText().toString())) {
+                    if(!userDAO.exists(username)) {
                         User user = userDAO.create(username, password);
                         Toast.makeText(getApplicationContext(), "Logged in", Toast.LENGTH_LONG).show();
                         Intent intent = new Intent(context, SecondActivity.class);
