@@ -22,16 +22,13 @@
         android:id="@+id/editText3"
         android:layout_width="212dp"
         android:layout_height="48dp"
-        android:layout_marginStart="5dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginEnd="36dp"
-        android:layout_marginRight="36dp"
-        android:layout_marginBottom="104dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="19dp"
+        android:layout_marginBottom="84dp"
         android:ems="10"
         android:hint="@string/MovieSearchHint"
         android:inputType="textPersonName"
         app:layout_constraintBottom_toTopOf="@+id/recyclerView"
-        app:layout_constraintEnd_toStartOf="@+id/button3"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -40,35 +37,31 @@
         android:layout_width="106dp"
         android:layout_height="41dp"
         android:layout_marginStart="20dp"
-        android:layout_marginLeft="20dp"
         android:layout_marginEnd="5dp"
-        android:layout_marginRight="5dp"
         android:layout_marginBottom="25dp"
         android:text="@string/MoveSearchButton"
         app:layout_constraintBottom_toTopOf="@+id/recyclerView"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.312"
         app:layout_constraintStart_toEndOf="@+id/editText3"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.082" />
+        app:layout_constraintVertical_bias="0.305" />
 
     <RadioGroup
         android:id="@+id/radiogroup1"
-        android:layout_width="242dp"
-        android:layout_height="43dp"
+        android:layout_width="259dp"
+        android:layout_height="54dp"
         android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
         android:layout_marginTop="9dp"
         android:layout_marginEnd="98dp"
-        android:layout_marginRight="98dp"
         android:layout_marginBottom="13dp"
         android:checkedButton="@id/radioButton"
         android:orientation="horizontal"
         app:layout_constraintBottom_toTopOf="@+id/recyclerView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button3"
-        app:layout_constraintVertical_bias="0.131">
+        app:layout_constraintTop_toBottomOf="@+id/button3">
 
         <RadioButton
             android:id="@+id/radioButton"
