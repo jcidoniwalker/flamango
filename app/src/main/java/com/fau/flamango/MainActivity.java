@@ -14,6 +14,8 @@ import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
+    private static Context context;
+
     private EditText ET_Username;
     private EditText ET_Password;
     private Button B_Login;
@@ -25,6 +27,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        context = getApplicationContext();
 
         users = new HashMap<>();
         users.put("admin", "admin");
@@ -65,5 +68,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         } else {
             Toast.makeText(getApplicationContext(), "Invalid Details", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    public static MySingleton getVolley() {
+        return MySingleton.getInstance(context);
     }
 }
