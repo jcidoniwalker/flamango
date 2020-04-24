@@ -44,7 +44,6 @@ public class HomeFragment extends Fragment {
 
                 adapter = new Adapter(getActivity().getApplicationContext(), items);
                 recyclerView.setAdapter(adapter);
-                System.out.println("test");
             }
         });
 
