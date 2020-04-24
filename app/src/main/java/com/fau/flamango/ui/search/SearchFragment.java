@@ -1,4 +1,4 @@
-package com.fau.flamango.ui.dashboard;
+package com.fau.flamango.ui.search;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -23,7 +23,7 @@ import com.fau.flamango.models.Movie;
 
 import java.util.ArrayList;
 
-public class DashboardFragment extends Fragment {
+public class SearchFragment extends Fragment {
 
     private Adapter adapter;
     private ArrayList<Movie> items;
@@ -38,7 +38,7 @@ public class DashboardFragment extends Fragment {
     private Button search_button;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_dashboard, container, false);
+        View root = inflater.inflate(R.layout.fragment_search, container, false);
 
         search_box = root.findViewById(R.id.editText3);
         radiogroup = root.findViewById(R.id.radiogroup1);

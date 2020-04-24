@@ -7,19 +7,19 @@
 
     <fragment
         android:id="@+id/navigation_home"
-        android:name="com.fau.flamango.ui.home.HomeFragment"
+        android:name="com.fau.flamango.ui.trending.TrendingFragment"
         android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_trending" />
 
     <fragment
         android:id="@+id/navigation_dashboard"
-        android:name="com.fau.flamango.ui.dashboard.DashboardFragment"
+        android:name="com.fau.flamango.ui.search.SearchFragment"
         android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
+        tools:layout="@layout/fragment_search" />
 
     <fragment
         android:id="@+id/navigation_notifications"
-        android:name="com.fau.flamango.ui.notifications.NotificationsFragment"
+        android:name="com.fau.flamango.ui.favorites.FavoritesFragment"
         android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_notifications" />
+        tools:layout="@layout/fragment_favorites" />
 </navigation>

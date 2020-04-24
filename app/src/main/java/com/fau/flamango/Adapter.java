@@ -10,13 +10,12 @@ import android.widget.TextView;
 import android.widget.ToggleButton;
 
 import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.fau.flamango.dao.UserDAO;
 import com.fau.flamango.models.Movie;
-import com.fau.flamango.ui.notifications.NotificationsFragment;
+import com.fau.flamango.ui.favorites.FavoritesFragment;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -75,7 +74,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
                 userDAO.update(SecondActivity.getUser());
 
                 if(frag != null) {
-                    ((NotificationsFragment) frag).trigger();
+                    ((FavoritesFragment) frag).trigger();
                 }
             }
         });
@@ -96,7 +95,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
         private ToggleButton toggle;
 
         public void setcallback(Fragment fragment) {
-           this.fragment = (NotificationsFragment)fragment;
+           this.fragment = (FavoritesFragment)fragment;
         }
 
         public ViewHolder(@NonNull final View itemView) {
