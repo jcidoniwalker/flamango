@@ -1,6 +1,8 @@
 package com.fau.flamango.models;
 
-public class Movie {
+import java.io.Serializable;
+
+public class Movie implements Serializable {
     public String title;
     public String description;
     public String uri;

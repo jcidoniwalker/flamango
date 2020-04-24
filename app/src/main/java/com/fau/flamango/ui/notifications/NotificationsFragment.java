@@ -13,13 +13,17 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.fau.flamango.R;
+import com.fau.flamango.SecondActivity;
+import com.fau.flamango.models.Movie;
 
 public class NotificationsFragment extends Fragment {
 
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_notifications, container, false);
-
+        for(Movie movie : SecondActivity.getUser().getFavorites()) {
+            System.out.println(movie.getTitle());
+        }
         return root;
     }
 }

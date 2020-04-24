@@ -10,6 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.fau.flamango.dao.UserDAO;
 import com.fau.flamango.models.Movie;
 import com.squareup.picasso.Picasso;
 
@@ -35,6 +36,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Movie movie = data.get(position);
+        holder.item = movie;
         holder.textTitle.setText(movie.getTitle());
         holder.textDescripion.setText(movie.getDescription());
         Picasso.with(layoutInflater.getContext()).load(movie.getImageUri()).into(holder.imageView);
@@ -48,9 +50,19 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView textTitle, textDescripion;
         ImageView imageView;
+        public Movie item;
+        private UserDAO userDAO = new UserDAO();
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    SecondActivity.getUser().getFavorites().add(item);
+                    userDAO.update(SecondActivity.getUser());
+                }
+            });
+
             textTitle = itemView.findViewById(R.id.cardTitle);
             textDescripion = itemView.findViewById(R.id.cardDescription);
             imageView = itemView.findViewById(R.id.imageView);
