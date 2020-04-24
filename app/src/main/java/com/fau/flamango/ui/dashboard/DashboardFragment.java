@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
@@ -44,9 +45,17 @@ public class DashboardFragment extends Fragment {
         radio_movie = root.findViewById(R.id.radioButton);
         radio_person = root.findViewById(R.id.radioButton2);
         search_button = root.findViewById(R.id.button3);
+
         search_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                try {
+                    InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(getContext().INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), 0);
+                } catch (Exception e) {
+                    // TODO: handle exception
+                }
+
                 switch(radiogroup.getCheckedRadioButtonId()) {
                     case R.id.radioButton: // movie title
                         items.clear();

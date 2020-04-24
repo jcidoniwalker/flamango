@@ -4,10 +4,13 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.ToggleButton;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -43,13 +46,39 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Movie movie = data.get(position);
-        holder.item = movie;
+    public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
+        final Movie movie = data.get(position);
         holder.textTitle.setText(movie.getTitle());
         holder.setcallback(frag);
         holder.textDescripion.setText(movie.getDescription());
         Picasso.with(layoutInflater.getContext()).load(movie.getImageUri()).into(holder.imageView);
+        holder.item = movie;
+
+        if(SecondActivity.getUser().movieExistsInFavorites(movie)) {
+            holder.toggle.setChecked(true);
+        } else {
+            holder.toggle.setChecked(false);
+        }
+
+        holder.toggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(!SecondActivity.getUser().movieExistsInFavorites(movie)) {
+                    SecondActivity.getUser().addMovieToFavorites(movie);
+                    holder.toggle.setChecked(true);
+                } else {
+                    SecondActivity.getUser().removeFromFavorites(movie);
+                    holder.toggle.setChecked(false);
+                }
+
+                UserDAO userDAO = new UserDAO();
+                userDAO.update(SecondActivity.getUser());
+
+                if(frag != null) {
+                    ((NotificationsFragment) frag).trigger();
+                }
+            }
+        });
     }
 
     @Override
@@ -63,6 +92,8 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
         public Movie item;
         private UserDAO userDAO = new UserDAO();
         private Fragment fragment = null;
+        private boolean isFavorite = false;
+        private ToggleButton toggle;
 
         public void setcallback(Fragment fragment) {
            this.fragment = (NotificationsFragment)fragment;
@@ -70,26 +101,10 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
 
         public ViewHolder(@NonNull final View itemView) {
             super(itemView);
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if(!SecondActivity.getUser().movieExistsInFavorites(item)) {
-                        SecondActivity.getUser().addMovieToFavorites(item);
-                    } else {
-                        SecondActivity.getUser().removeFromFavorites(item);
-                    }
-
-                    userDAO.update(SecondActivity.getUser());
-                    if(fragment != null) {
-                        ((NotificationsFragment) fragment).trigger();
-                        System.out.println("im trying");
-                    }
-                }
-            });
-
             textTitle = itemView.findViewById(R.id.cardTitle);
             textDescripion = itemView.findViewById(R.id.cardDescription);
             imageView = itemView.findViewById(R.id.imageView);
+            toggle = itemView.findViewById(R.id.toggleButton);
         }
     }
 }
