@@ -50,10 +50,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         intent.putExtra("userobj", user);
                         startActivity(intent);
                     } else {
-                        Toast.makeText(getApplicationContext(), "Invalid Details", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "Invalid details", Toast.LENGTH_SHORT).show();
                     }
                 } else {
-                    Toast.makeText(getApplicationContext(), "Invalid Details", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Invalid details", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -72,10 +72,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 intent.putExtra("userobj", user);
                 startActivity(intent);
             } else {
-                Toast.makeText(getApplicationContext(), "Invalid Password", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Invalid details", Toast.LENGTH_SHORT).show();
             }
         } else {
-            Toast.makeText(getApplicationContext(), "That username is not associated with an account.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "Invalid details.", Toast.LENGTH_SHORT).show();
         }
     }
 

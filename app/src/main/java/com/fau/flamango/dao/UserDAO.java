@@ -9,7 +9,10 @@ public class UserDAO {
     public static HashMap<String, User> users = new HashMap<>();
 
     public UserDAO() {
-        users.put("admin", new User("admin", "admin"));
+        /* For debugging purposes */
+        if(!users.containsKey("admin")) {
+            users.put("admin", new User("admin", "admin"));
+        }
     }
 
     public User login(String username, String password) {
