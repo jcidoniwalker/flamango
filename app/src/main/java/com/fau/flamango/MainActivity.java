@@ -10,7 +10,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import java.util.HashMap;
+import com.fau.flamango.dao.UserDAO;
+import com.fau.flamango.models.User;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -21,16 +22,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Button B_Login;
     private Button B_Register;
 
-    private HashMap<String, String> users;
+    private static UserDAO userDAO = new UserDAO();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         context = getApplicationContext();
-
-        users = new HashMap<>();
-        users.put("admin", "admin");
 
         ET_Username = findViewById(R.id.editText);
         ET_Password = findViewById(R.id.editText2);
@@ -41,11 +39,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         B_Register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!ET_Username.getText().toString().equals("") && !ET_Password.getText().toString().equals("")) {
-                    if(!users.containsKey(ET_Username.getText().toString())) {
-                        users.put(ET_Username.getText().toString(), ET_Password.getText().toString());
+                String username = ET_Username.getText().toString();
+                String password = ET_Password.getText().toString();
+
+                if(!username.equals("") && !password.equals("")) {
+                    if(!userDAO.exists(ET_Username.getText().toString())) {
+                        User user = userDAO.create(username, password);
                         Toast.makeText(getApplicationContext(), "Logged in", Toast.LENGTH_LONG).show();
-                        Intent intent = new Intent(MainActivity.this, SecondActivity.class);
+                        Intent intent = new Intent(context, SecondActivity.class);
+                        intent.putExtra("userobj", user);
                         startActivity(intent);
                     }
                 } else {
@@ -57,16 +59,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
-        if(users.containsKey(ET_Username.getText().toString())) {
-            if(users.get(ET_Username.getText().toString()).equals(ET_Password.getText().toString())) {
+        String username = ET_Username.getText().toString();
+        String password = ET_Password.getText().toString();
+
+        if(userDAO.exists(username)) {
+            User user = userDAO.login(username, password);
+            if(user != null) {
                 Toast.makeText(getApplicationContext(), "Logged in", Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(this, SecondActivity.class);
+                intent.putExtra("userobj", user);
                 startActivity(intent);
             } else {
                 Toast.makeText(getApplicationContext(), "Invalid Password", Toast.LENGTH_SHORT).show();
             }
-        } else {
-            Toast.makeText(getApplicationContext(), "Invalid Details", Toast.LENGTH_SHORT).show();
         }
     }
 

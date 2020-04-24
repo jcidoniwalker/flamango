@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.fau.flamango.Adapter;
 import com.fau.flamango.R;
+import com.fau.flamango.SecondActivity;
 import com.fau.flamango.dao.MovieDAO;
 import com.fau.flamango.interfaces.DataReceived;
 import com.fau.flamango.models.Movie;
