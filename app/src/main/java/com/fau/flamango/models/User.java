@@ -31,4 +31,13 @@ public class User implements Serializable {
     public void setFavorites(ArrayList<Movie> favorites) {
         this.favorites = favorites;
     }
+
+    public void addMovieToFavorites(Movie movie) {
+        for(Movie m : favorites) {
+            if(m.getTitle().equals(movie.getTitle()))
+                return;
+        }
+
+        favorites.add(movie);
+    }
 }

@@ -32,9 +32,7 @@ public class UserDAO {
     }
 
     public void update(User user) {
-        System.out.println("user is: " + user.getUsername());
         User _user = users.get(user.getUsername());
-        System.out.println("it is..again " + _user.getUsername());
         _user.setFavorites(user.getFavorites());
     }
 }

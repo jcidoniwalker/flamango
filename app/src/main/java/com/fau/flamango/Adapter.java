@@ -58,7 +58,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    SecondActivity.getUser().getFavorites().add(item);
+                    SecondActivity.getUser().addMovieToFavorites(item);
                     userDAO.update(SecondActivity.getUser());
                 }
             });
