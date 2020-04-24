@@ -10,16 +10,19 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.fau.flamango.models.Movie;
+import com.squareup.picasso.Picasso;
+
 import java.util.List;
 
 public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
 
     private LayoutInflater layoutInflater;
-    private List<String> items;
+    private List<Movie> data;
 
-    public Adapter(Context context, List<String> data) {
+    public Adapter(Context context, List<Movie> data) {
         this.layoutInflater = LayoutInflater.from(context);
-        this.items = data;
+        this.data = data;
     }
 
     @NonNull
@@ -31,11 +34,15 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        Movie movie = data.get(position);
+        holder.textTitle.setText(movie.getTitle());
+        holder.textDescripion.setText(movie.getDescription());
+        Picasso.with(layoutInflater.getContext()).load(movie.getImageUri()).into(holder.imageView);
     }
 
     @Override
     public int getItemCount() {
-        return items.size();
+        return data.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
