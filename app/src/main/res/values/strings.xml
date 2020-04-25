@@ -11,4 +11,5 @@
     <string name="SearchPersonRadio">Person</string>
     <string name="MoveSearchButton">Search</string>
     <string name="MovieSearchHint">Search...</string>
+    <string name="appTitle">Flamango</string>
 </resources>
