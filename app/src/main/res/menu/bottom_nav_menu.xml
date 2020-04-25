@@ -16,4 +16,9 @@
         android:icon="@drawable/heart"
         android:title="@string/title_notifications" />
 
+    <item
+        android:id="@+id/navigation_signout"
+        android:icon="@drawable/logout"
+        android:title="Logout"/>
+
 </menu>
