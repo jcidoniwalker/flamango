@@ -22,12 +22,16 @@ public class SecondActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_second);
         Intent intent = getIntent();
-        user = (User) intent.getSerializableExtra("userobj");
+        user = (User) intent.getSerializableExtra("userobj"); // This is passed from MainActivity
 
+        /* Initialize the bottom navigation panel */
         BottomNavigationView navView = findViewById(R.id.nav_view);
+
+        /* Listen for logout click */
         navView.getMenu().findItem(R.id.navigation_signout).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem menuItem) {
+                /* Send the user back to the login/registration activity */
                 Intent i = new Intent(getApplication(), MainActivity.class);
                 startActivity(i);
                 return true;
@@ -41,10 +45,10 @@ public class SecondActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(navView, navController);
     }
 
-    public void gotoMainActivity() {
-        startActivity(new Intent(this, MainActivity.class));
-    }
-
+    /**
+     * The User object of the logged in user.
+     * @return User
+     */
     public static User getUser() {
         return user;
     }

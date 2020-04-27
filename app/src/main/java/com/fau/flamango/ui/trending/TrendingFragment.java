@@ -35,6 +35,8 @@ public class TrendingFragment extends Fragment {
 
         items = new ArrayList<Movie>();
         movieDAO = new MovieDAO();
+
+        /* The list of trending movies will be retrieved via a callback method, declared by the DataReceived interface */
         movieDAO.getTrending(new DataReceived() {
             @Override
             public void onDataReceived(ArrayList<Movie> movies) {
@@ -42,7 +44,7 @@ public class TrendingFragment extends Fragment {
                     items.add(movie);
                 }
 
-                adapter = new Adapter(getActivity().getApplicationContext(), items);
+                adapter = new Adapter(getActivity().getApplicationContext(), items); // Pass the list of objects to use for dynamic CardView content
                 recyclerView.setAdapter(adapter);
             }
         });

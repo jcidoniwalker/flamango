@@ -30,15 +30,19 @@ public class FavoritesFragment extends Fragment {
         recyclerView.setAdapter(new Adapter(getActivity().getApplicationContext(), new ArrayList<Movie>()));
 
         items = new ArrayList<Movie>();
+        /* Retrieve the list of favorited movies from the "favorites" list in the User object */
         for(Movie movie : SecondActivity.getUser().getFavorites()) {
             items.add(movie);
-            adapter = new Adapter(getActivity().getApplicationContext(), items, this);
+            adapter = new Adapter(getActivity().getApplicationContext(), items, this); // Pass the list of objects to use for dynamic CardView content
             recyclerView.setAdapter(adapter);
         }
 
         return root;
     }
 
+    /**
+     * Called when a favorited movie has been unfavorited and the UI must update.
+     */
     public void trigger() {
         for(Movie m : SecondActivity.getUser().getFavorites()) {
             System.out.println(m.getTitle());

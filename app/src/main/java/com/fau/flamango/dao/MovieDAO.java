@@ -15,13 +15,13 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 public class MovieDAO {
-    private String api_base = "https://api.themoviedb.org/3";
-    private String api_key = "ff7c2e230c20460f35b90035e3b9ca11";
+    private String api_base = "https://api.themoviedb.org/3"; // The root path of the API
+    private String api_key = "ff7c2e230c20460f35b90035e3b9ca11"; // From TMDb
 
-    public MovieDAO() {
-
-    }
-
+    /**
+     * Gets a list of Trending movies.
+     * @param dr DataReceived object to use as a callback when information has been loaded.
+     */
     public void getTrending(final DataReceived dr) {
         String url = api_base + "/trending/movie/day?api_key=" + api_key;
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
@@ -54,6 +54,11 @@ public class MovieDAO {
         MainActivity.getVolley().addToRequestQueue(jsonObjectRequest);
     }
 
+    /**
+     * Gets movies related to a title
+     * @param title
+     * @param dr DataReceived object to use as a callback when information has been loaded.
+     */
     public void getMovieByTitle(String title, final DataReceived dr) {
         // https://api.themoviedb.org/3/search/movie?api_key=ff7c2e230c20460f35b90035e3b9ca11&language=en-US&query=texas%20chainsaw&page=1&include_adult=false
         String url = api_base + "/search/movie?api_key=" + api_key + "&query=" + title;
@@ -91,7 +96,11 @@ public class MovieDAO {
         MainActivity.getVolley().addToRequestQueue(jsonObjectRequest);
     }
 
-
+    /**
+     * Gets movies related to a person
+     * @param name
+     * @param dr DataReceived object to use as a callback when information has been loaded.
+     */
     public void getMovieByPerson(String name, final DataReceived dr) {
         // https://api.themoviedb.org/3/search/movie?api_key=ff7c2e230c20460f35b90035e3b9ca11&language=en-US&query=texas%20chainsaw&page=1&include_adult=false
         String url = api_base + "/search/person?api_key=" + api_key + "&query=" + name;

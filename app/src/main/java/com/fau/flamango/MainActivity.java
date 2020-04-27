@@ -17,12 +17,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private static Context context;
 
+    /* Login GUI */
     private EditText ET_Username;
     private EditText ET_Password;
     private Button B_Login;
     private Button B_Register;
 
     private static UserDAO userDAO = new UserDAO();
+    private User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +38,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         B_Register = findViewById(R.id.button2);
         B_Login.setOnClickListener(this);
 
+
         B_Register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -44,11 +47,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                 if(!username.equals("") && !password.equals("")) {
                     if(!userDAO.exists(username)) {
-                        User user = userDAO.create(username, password);
+                        user = userDAO.create(username, password); // Create a new User
                         Toast.makeText(getApplicationContext(), "Logged in", Toast.LENGTH_LONG).show();
+                        /* Prepare the next Activity */
                         Intent intent = new Intent(context, SecondActivity.class);
-                        intent.putExtra("userobj", user);
-                        startActivity(intent);
+                        intent.putExtra("userobj", user); // Pass the User object to the next activity
+                        startActivity(intent); // Start the Activity
                     } else {
                         Toast.makeText(getApplicationContext(), "Invalid details", Toast.LENGTH_SHORT).show();
                     }
@@ -65,12 +69,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         String password = ET_Password.getText().toString();
 
         if(userDAO.exists(username)) {
-            User user = userDAO.login(username, password);
+            user = userDAO.login(username, password);
             if(user != null) {
                 Toast.makeText(getApplicationContext(), "Logged in", Toast.LENGTH_LONG).show();
+                /* Prepare the next Activity */
                 Intent intent = new Intent(this, SecondActivity.class);
-                intent.putExtra("userobj", user);
-                startActivity(intent);
+                intent.putExtra("userobj", user); // Pass the User object to the next activity
+                startActivity(intent); // Start the Activity
             } else {
                 Toast.makeText(getApplicationContext(), "Invalid details", Toast.LENGTH_SHORT).show();
             }
@@ -79,6 +84,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
+    /**
+     * Return a Volley instance from the context of our MainActivity
+     * Future: This could be moved to SecondActivity, as it is only used once a user is logged in.
+     * @return MySingleton
+     */
     public static MySingleton getVolley() {
         return MySingleton.getInstance(context);
     }

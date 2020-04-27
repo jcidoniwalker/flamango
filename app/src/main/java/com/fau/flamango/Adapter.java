@@ -20,6 +20,9 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
+/**
+ * This class handles the dynamic CardView objects
+ */
 public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
 
     private LayoutInflater layoutInflater;
@@ -44,14 +47,20 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
         return new ViewHolder(view);
     }
 
+    /**
+     * This method sets the dynamically loaded content of a CardView
+     * @param holder
+     * @param position
+     */
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
         final Movie movie = data.get(position);
+        holder.movie = movie;
         holder.textTitle.setText(movie.getTitle());
-        holder.setcallback(frag);
         holder.textDescripion.setText(movie.getDescription());
         Picasso.with(layoutInflater.getContext()).load(movie.getImageUri()).into(holder.imageView);
-        holder.item = movie;
+
+        holder.setcallback(frag); // This callback will allow the caller (Fragment) to know when the dynamic data has been displayed.
 
         if(SecondActivity.getUser().movieExistsInFavorites(movie)) {
             holder.toggle.setChecked(true);
@@ -71,10 +80,10 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
                 }
 
                 UserDAO userDAO = new UserDAO();
-                userDAO.update(SecondActivity.getUser());
+                userDAO.update(SecondActivity.getUser()); // Simple CRUD operation
 
                 if(frag != null) {
-                    ((FavoritesFragment) frag).trigger();
+                    ((FavoritesFragment) frag).trigger(); // A callback to tell the favorites fragment when to update the UI (after a change in favorites)
                 }
             }
         });
@@ -85,13 +94,14 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
         return data.size();
     }
 
+    /**
+     * This class handles the Android setters of CardView content
+     */
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView textTitle, textDescripion;
         ImageView imageView;
-        public Movie item;
-        private UserDAO userDAO = new UserDAO();
+        public Movie movie;
         private Fragment fragment = null;
-        private boolean isFavorite = false;
         private ToggleButton toggle;
 
         public void setcallback(Fragment fragment) {

@@ -46,6 +46,10 @@ public class SearchFragment extends Fragment {
         radio_person = root.findViewById(R.id.radioButton2);
         search_button = root.findViewById(R.id.button3);
 
+        /**
+         * Handles determining whether the user is searching for a movie, or a person
+         * A radio button is displayed on the GUI, and we determine which one is selected
+         */
         search_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -75,12 +79,14 @@ public class SearchFragment extends Fragment {
         recyclerView.setAdapter(new Adapter(root.getContext(), new ArrayList<Movie>()));
 
         items = new ArrayList<Movie>();
-
         movieDAO = new MovieDAO();
 
         return root;
     }
 
+    /**
+     * Displays Movies that are searched by title.
+     */
     public void displayMovies() {
         String title = search_box.getText().toString();
         title = title.trim();
@@ -94,12 +100,15 @@ public class SearchFragment extends Fragment {
                     System.out.println(movie.getTitle());
                 }
 
-                adapter = new Adapter(getActivity().getApplicationContext(), items);
+                adapter = new Adapter(getActivity().getApplicationContext(), items); // Pass the list of objects to use for dynamic CardView content
                 recyclerView.setAdapter(adapter);
             }
         });
     }
 
+    /**
+     * Displays Movies that are searched by person.
+     */
     public void displayPerson() {
         String name = search_box.getText().toString();
         name = name.trim();
@@ -113,7 +122,7 @@ public class SearchFragment extends Fragment {
                     System.out.println(movie.getTitle());
                 }
 
-                adapter = new Adapter(getActivity().getApplicationContext(), items);
+                adapter = new Adapter(getActivity().getApplicationContext(), items); // Pass the list of objects to use for dynamic CardView content
                 recyclerView.setAdapter(adapter);
             }
         });
